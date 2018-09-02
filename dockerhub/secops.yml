@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  vars_files:
+  - diff_list.yml
+  tasks:
+  - name: Clean old image list
+    file:
+     path: /var/lib/jenkins/workspace/secops/dockerhub/imglist.yml
+     state: absent
+  - file: path=/var/lib/jenkins/workspace/secops/dockerhub/imglist.yml state=touch mode=0755
+
+  - name: Create new image list
+    command: sh prepimg.sh
+    args:
+      chdir: /var/lib/jenkins/workspace/secops/dockerhub/
+  - name: Pull images from dockerhub
+    docker_image:
+     name: "{{item}}"
+     pull: yes
+    with_items:
+    - "{{imgs}}"
+    ignore_errors: true
+
+  - name: Create archive of docker images
+    command: sh archive.sh
+    become: sudo
+    args:
+     chdir: /var/lib/jenkins/workspace/secops/dockerhub/

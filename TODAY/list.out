@@ -1,0 +1,8 @@
+centos:7.5.1804
+centos:7.4.1708
+cirros:0.4.0
+cirros:0.4
+debian:9.5
+debian:9.4
+alpine:3.8
+alpine:3.7

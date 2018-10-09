@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks: 
+  - name: Docker images Cleanup process execution
+    shell: sh docker_cleanup.sh
+    args:
+     chdir: /home/sagar/myproject/TODAY
+  
+  - name: Create list process execution
+    shell: sh pull_list.sh
+    args:
+     chdir: /home/sagar/myproject/TODAY
+  

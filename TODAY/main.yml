@@ -1,5 +1,0 @@
----
-- hosts: localhost
-  tasks:
-- include: process1.yml
-- include: process2.yml

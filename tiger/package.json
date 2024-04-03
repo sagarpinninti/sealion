@@ -1,0 +1,32 @@
+{
+  "name": "Demo",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "^1.120.6",
+    "@types/jquery": "^3.5.29",
+    "cds-plugin-ui5": "^0.6.13"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-oceanus": "cds watch --open myns.oceanus/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-project1": "cds watch --open myns.project1/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-project2": "cds watch --open project2/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/project1",
+    "app/project1",
+    "app/project2"
+  ]
+}

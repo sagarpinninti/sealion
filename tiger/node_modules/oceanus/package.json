@@ -1,0 +1,25 @@
+{
+  "name": "oceanus",
+  "version": "0.0.1",
+  "private": true,
+  "description": "An SAP Fiori application.",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "@ui5/cli": "^3.0.0",
+    "@sap/ux-ui5-tooling": "1",
+    "eslint": "7.32.0",
+    "@sap/eslint-plugin-ui5-jsdocs": "2.0.5",
+    "@sapui5/ts-types": "~1.122.0"
+  },
+  "scripts": {
+    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
+    "deploy": "fiori verify",
+    "deploy-config": "fiori add deploy-config"
+  }
+}

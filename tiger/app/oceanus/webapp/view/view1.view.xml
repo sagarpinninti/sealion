@@ -1,0 +1,35 @@
+<mvc:View controllerName="myns.oceanus.controller.view1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smarttable="sap.ui.comp.smarttable"
+    xmlns:smartfilterbar="sap.ui.comp.smartfilterbar">
+    <Page id="page" title="{i18n>title}">
+        <headerContent>
+            <HeaderContainer id="myHeaderContainer">
+                <!-- HeaderContainer content goes here -->
+            </HeaderContainer>
+        </headerContent>
+        <content>
+            <HBox id="selectAndButtonContainer">
+                <!-- Select Dropdown -->
+                <Select id="searchField" width="100%">
+                    <layoutData>
+                        <FlexItemData id="_IDGenFlexItemData1" growFactor="1"/>
+                    </layoutData>
+                    <core:Item id="hyperscalerItem" key="hyperscaler" text="Hyperscaler"/>
+                    <core:Item id="containerItem" key="container" text="Container"/>
+                    <core:Item id="networkItem" key="network" text="Network"/>
+                    <core:Item id="databaseItem" key="database" text="Database"/>
+                    <core:Item id="applicationserverItem" key="applicationserver" text="Application Server"/>
+                </Select>
+                <!-- Go Button -->
+                <Button id="goButton" text="Go" press="onGo"/>
+            </HBox>
+            <VBox id="contentContainer" class="tableContainer" width="100%">
+                <!-- Content will be added dynamically -->
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

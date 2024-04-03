@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="MyService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="threatinfoSet" EntityType="MyService.threatinfoSet"/>
+      </EntityContainer>
+      <EntityType Name="threatinfoSet">
+        <Key>
+          <PropertyRef Name="Threat_ID"/>
+        </Key>
+        <Property Name="Threat_ID" Type="Edm.String" Nullable="false"/>
+        <Property Name="Threat_Component_ID" Type="Edm.String"/>
+        <Property Name="Threat" Type="Edm.String"/>
+        <Property Name="Threat_Narrative" Type="Edm.String"/>
+        <Property Name="Attack_Precondition" Type="Edm.String"/>
+        <Property Name="Component" Type="Edm.String"/>
+        <Property Name="Phase" Type="Edm.String"/>
+        <Property Name="Attack_Path" Type="Edm.String"/>
+        <Property Name="Ease_of_Attack" Type="Edm.String"/>
+        <Property Name="Impact" Type="Edm.String"/>
+        <Property Name="Severity" Type="Edm.String"/>
+        <Property Name="Followup" Type="Edm.String"/>
+        <Property Name="Comment" Type="Edm.String"/>
+        <Property Name="Control_ID" Type="Edm.String"/>
+        <Property Name="Control_Narration" Type="Edm.String"/>
+        <Property Name="NIST800_53r5_Mapping" Type="Edm.String"/>
+        <Property Name="MITRE_Tactic_ID" Type="Edm.String"/>
+        <Property Name="MITRE_Technique_ID" Type="Edm.String"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

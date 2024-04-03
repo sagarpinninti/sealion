@@ -1,0 +1,141 @@
+{
+  "namespace": "myns",
+  "definitions": {
+    "myns.threatinfo": {
+      "kind": "entity",
+      "elements": {
+        "Threat_ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "Threat_Component_ID": {
+          "type": "cds.String"
+        },
+        "Threat": {
+          "type": "cds.String"
+        },
+        "Threat_Narrative": {
+          "type": "cds.String"
+        },
+        "Attack_Precondition": {
+          "type": "cds.String"
+        },
+        "Component": {
+          "type": "cds.String"
+        },
+        "Phase": {
+          "type": "cds.String"
+        },
+        "Attack_Path": {
+          "type": "cds.String"
+        },
+        "Ease_of_Attack": {
+          "type": "cds.String"
+        },
+        "Impact": {
+          "type": "cds.String"
+        },
+        "Severity": {
+          "type": "cds.String"
+        },
+        "Followup": {
+          "type": "cds.String"
+        },
+        "Comment": {
+          "type": "cds.String"
+        },
+        "Control_ID": {
+          "type": "cds.String"
+        },
+        "Control_Narration": {
+          "type": "cds.String"
+        },
+        "NIST800_53r5_Mapping": {
+          "type": "cds.String"
+        },
+        "MITRE_Tactic_ID": {
+          "type": "cds.String"
+        },
+        "MITRE_Technique_ID": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "MyService": {
+      "@source": "srv/threat.cds",
+      "kind": "service"
+    },
+    "MyService.threatinfoSet": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "myns.threatinfo"
+          ]
+        }
+      },
+      "elements": {
+        "Threat_ID": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "Threat_Component_ID": {
+          "type": "cds.String"
+        },
+        "Threat": {
+          "type": "cds.String"
+        },
+        "Threat_Narrative": {
+          "type": "cds.String"
+        },
+        "Attack_Precondition": {
+          "type": "cds.String"
+        },
+        "Component": {
+          "type": "cds.String"
+        },
+        "Phase": {
+          "type": "cds.String"
+        },
+        "Attack_Path": {
+          "type": "cds.String"
+        },
+        "Ease_of_Attack": {
+          "type": "cds.String"
+        },
+        "Impact": {
+          "type": "cds.String"
+        },
+        "Severity": {
+          "type": "cds.String"
+        },
+        "Followup": {
+          "type": "cds.String"
+        },
+        "Comment": {
+          "type": "cds.String"
+        },
+        "Control_ID": {
+          "type": "cds.String"
+        },
+        "Control_Narration": {
+          "type": "cds.String"
+        },
+        "NIST800_53r5_Mapping": {
+          "type": "cds.String"
+        },
+        "MITRE_Tactic_ID": {
+          "type": "cds.String"
+        },
+        "MITRE_Technique_ID": {
+          "type": "cds.String"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v4.8.0",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

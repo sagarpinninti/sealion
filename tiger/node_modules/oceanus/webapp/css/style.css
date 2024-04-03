@@ -1,0 +1,44 @@
+/* Existing styles */
+.testTile .sapMGTContentHeader {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contentContainer > img {
+    display: block;
+    width: 100%;
+}
+
+.transparentBorder {
+    border: 1.5px solid transparent;
+}
+
+.objectBox {
+    border: 1.5px solid #ccc; /* Add border style */
+    padding: 20px; /* Add padding for spacing */
+    margin-bottom: 2px; /* Add margin for spacing between objects */
+    background-color: transparent; /* Set background color to transparent */
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5); /* Add glossy effect */
+}
+
+.fileContainerWithMargin {
+    margin-left: 1in; /* Left margin */
+    border: 1.5px solid #ccc; /* Border style */
+    padding: 20px; /* Padding for spacing */
+    background-color: transparent; /* Transparent background */
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5); /* Glossy effect */
+}
+
+.contentContainerWithBorder {
+    border: 1.5px solid #ccc;
+}
+
+.downloadButton {
+    margin-right: auto; /* Align to the right */
+    margin-top: 10px; /* Add top margin */
+}
+.tableContainer {
+    width: 100%;
+    height: calc(100vh - 200px); /* Adjust the height as needed */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the container height */
+}

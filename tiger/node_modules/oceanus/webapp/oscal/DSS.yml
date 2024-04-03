@@ -1,0 +1,315 @@
+# This is a baseline security profile for securing Devops landscape in cloud-native infrastructure.
+metadata:
+  title: "Cloud Native Infrastructure Security Baseline"
+  version: "1.0"
+  author: "TBD"
+  creation-date: "2024-02-21"
+
+# Properties of the profile
+props:
+  title: Baseline Security Profile for Cloud-Native Infrastructure
+  description: This profile outlines security best practices for securing various cloud-native infrastructure components such as IaC, build and deployment infrastructure, container registries, and GitOps deployment agents.
+  owner: Your Organization Name
+
+# Security controls and groups
+
+# Group 1: Securing IaC
+- group:
+    id: group-iac-security
+    title: IaC Security
+    prose: |
+      This group outlines security controls for securing Infrastructure as Code (IaC). Implementing these controls helps minimize the risk of security breaches arising from misconfigurations, unauthorized access, and malware injection or data breaches.
+  controls:
+    - id: control-10.1
+      props:
+        title: Use security IDE plugins for IaC scanning
+        description: Implement security IDE plugins to proactively scan IaC and prevent misconfigurations before deployment. This early detection saves time in the development process and improves overall security posture.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-10.2
+      props:
+        title: Scan for sensitive information in IaC
+        description: Conduct thorough scans on IaC to identify and remove sensitive information like secrets, keys, tokens, and credentials to prevent leaks and compromise.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-10.3
+      props:
+        title: Secure access to IaC
+        description: Implement strict access controls (authentication and authorization) to limit access to IaC only to authorized users. Regularly review and update access controls and monitor user activity for anomalous behavior.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-10.4
+      props:
+        title: Implement secure-by-default principles in IaC templates
+        description: Embed secure-by-default configurations like encryption and network access restrictions within IaC templates. This proactive approach mitigates risks and prevents vulnerabilities upfront, leading to operational efficiencies and cost savings over time.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+
+# Group 2: Securing build and deployment infrastructure
+- group:
+    id: group-build-deploy-security
+    title: Build and Deployment Infrastructure Security
+    prose: |
+      This group outlines security controls for securing the build and deployment infrastructure, which comprises essential components such as Jenkins, GitLab, and GitHub. Implementing these controls is crucial to safeguard the CI/CD environment from potential security breaches.
+  controls:
+    - id: control-11.1
+      props:
+        title: Implement secure access to build and deployment infrastructure
+        description: |
+          - Implement central authentication for developer accounts across the pipeline to prevent unauthorized actions.
+          - Implement least privilege for service accounts, minimizing their access to APIs and reducing the attack surface.
+          - Secure API keys, tokens, and certificates in a dedicated vault, preventing unauthorized access.
+          - Enforce multi-factor authentication (MFA) for admin accounts, adding an extra layer of security.
+          - Adhere to password complexity and rotation requirements as defined in the account and password policy.
+          - Restrict access to administrative ports (unprotected ports expose CI/CD infrastructure to critical vulnerabilities). Access must be limited to authorized users for secure development and deployment.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-11.2
+      props:
+        title: Implement secure connectivity for build and deployment infrastructure
+        description: |
+          - Secure data in transit with TLS. Enabling SSL automatically triggers HTTP Strict Transport Security (HSTS) headers, ensuring a secure connection. Disabling TLS will disable access as browsers block protocol downgrades to HTTP.
+          - Enforce strong SSH keys. Key strength and algorithm choices must comply with internal security policy to ensure secure server access.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-11.3
+      props:
+        title: Backup build and deployment infrastructure
+        description: |
+          - Use the Organization backup process to allow a restore of the complete system (including databases and configurations). If the Organization backup process cannot be used, implement a backup process in compliance with the Organization Backup Infrastructure Directive. The transfer of the backups must be performed in a secure way over secure and trusted network segments.
+        severity: medium
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-11.4
+      props:
+        title: Reduce attack surface of build and deployment infrastructure
+        description: |
+          - Disable pre-receive hooks in GitLab/GitHub, as they potentially expose vulnerabilities for attackers to exploit.
+          - Disable Gravatar integration within GitLab to mitigate potential privacy risks and unauthorized access to user data.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+
+# Group 3: Securing container registries
+- group:
+    id: group-registry-security
+    title: Container Registry Security
+    prose: |
+      This group outlines security controls for securing container registries. Implementing these controls helps mitigate the risk of unauthorized access, malware injection, and other threats.
+  controls:
+    - id: control-12.1
+      props:
+        title: Mirror only trusted container registries
+        description: To mitigate security risks, only mirror container registries that are trusted and support OCI-image-spec images.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.2
+      props:
+        title: Use trusted content flags
+        description: Only pull verified and trustworthy Docker images with official status from container registries. These images must be explicitly flagged as trusted and contain official labels or open-source sponsored content. Explicitly exclude untrusted content.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.3
+      props:
+        title: Disable public network access to container registries
+        description: To mitigate security risks, disable public network access to container registries. This ensures only authorized entities within a private network can access and interact with the registry.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.4
+      props:
+        title: Implement consistent backup for container registries
+        description: Implement a consistent backup process that includes the full repository data and artifacts. Continuously monitor backup progress.
+        severity: medium
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.5
+      props:
+        title: Implement project quotas and limits for container registries
+        description: Implement project quotas and limits for effective resource management and preventing resource exhaustion. This mitigates the risk of malicious actors launching DoS attacks or consuming excessive storage.
+        severity: medium
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.6
+      props:
+        title: Enable garbage collection for container registries
+        description: Enable garbage collection for registries to mitigate data leakage and ensure secure resource management. This prevents the accumulation of stale data and unused artifacts that might contain sensitive information.
+        severity: medium
+        impact: low
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-12.7
+      props:
+        title: Enforce secure access to container registries
+        description: Disable anonymous registry access. Require mutually authenticated TLS for all registry connections. This prevents unauthorized access and protects sensitive data.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+
+# Group 4: Securing GitOps deployment agents
+- group:
+    id: group-gitops-agent-security
+    title: GitOps Deployment Agent Security
+    prose: |
+      This group outlines security controls for securing GitOps deployment agents. Implementing these controls helps ensure the integrity and security of the deployment process.
+  controls:
+    - id: control-13.1
+      props:
+        title: Disable default projects in GitOps deployment agents
+        description: Disable the default project in GitOps deployment agents. This prevents unrestricted app deployment across any cluster and namespace, reducing the attack surface. Implement granular project isolation and strict access controls instead.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-13.2
+      props:
+        title: Limit access to the default admin user in GitOps deployment agents
+        description: Restrict access to the default admin user as it possesses elevated privileges to access all resources. Unauthorized access to these privileges can lead to significant security threats, including privilege escalation.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-13.3
+      props:
+        title: Restrict deployment to non-default namespaces in GitOps deployment agents
+        description: Restrict GitOps deployments to non-default Kubernetes namespaces. Placing user-managed resources within the default namespace prevents implementing policies for RBAC permissions, service account usage, and network policies.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-13.4
+      props:
+        title: Disable anonymous access to the GitOps deployment agent API server
+        description: Disable anonymous access to the GitOps deployment agent API server. This prevents unauthorized actors from deploying malicious applications and compromising your Kubernetes cluster.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-13.5
+      props:
+        title: Enable TLS for GitOps deployment agent communication
+        description: Enable TLS for communication between GitOps deployment agent components to secure data in transit and prevent unauthorized interception or tampering. Failure to do so exposes sensitive information and compromises system integrity.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-13.6
+      props:
+        title: Include GitOps deployment agent in patch management process
+        description: Explicitly address the GitOps deployment agent version within the patch management process to prevent exploitation of known vulnerabilities.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+
+# Group 5: Continuous compliance and monitoring
+- group:
+    id: group-compliance-monitoring
+    title: Continuous Compliance and Monitoring
+    prose: |
+      This group outlines security controls for continuous compliance and monitoring. Implementing these controls helps maintain a secure environment through ongoing evaluation and detection of potential threats.
+  controls:
+    - id: control-14.1
+      props:
+        title: Implement policy as code for security policies
+        description: Version security policies as code within the GitOps workflow to enable continuous and controlled security posture management.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-14.2
+      props:
+        title: Implement environment-specific security policies
+        description: Implement environment-specific security policies (ESP) to optimize your security posture and adapt to evolving threats. ESPs provide granular control, tailoring security measures to your unique environment's needs and risks.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-14.3
+      props:
+        title: Conduct regular security audits
+        description: Conduct continuous auditing of security policies to identify and prevent potential violations before they lead to security incidents. Timely alerts enable rapid response and remediation, minimizing risks and safeguarding your systems.
+        severity: high
+        impact: medium
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime
+    - id: control-14.4
+      props:
+        title: Implement continuous security monitoring and posture management (CSMP)
+        description: Leverage CSMP to continuously map and mitigate attack paths across your entire attack surface, strengthening your defense against both internal and external threats.
+        severity: high
+        impact: high
+        references:
+          - url: null
+        certification: null
+        phase: develop/distribute/deploy/runtime

@@ -1,0 +1,212 @@
+#This is baseline security profile for securing Containers in Cloudnative Infrastructure.
+metadata:
+  title: "Image Security Baseline"
+  version: "1.0"
+  author: "TBD"
+  creation-date: "2024-02-21"
+
+profiles:
+  - id: alpha-feature-control
+    title: Disable Alpha Features in Production Environments
+    description: |
+      Avoid using alpha features in production deployments due to their experimental nature and potential stability or security issues.
+      This control emphasizes:
+      - **Production Readiness:** Only deploy features officially released and deemed production-ready to minimize risks associated with untested or unstable functionalities.
+      - **Risk Management:** Evaluate potential security implications and stability risks before considering alpha features even in non-production environments.
+    props:
+      - prop: alpha-feature-usage
+        value: prohibited
+    prose: |
+      This control requires disabling alpha features in your production container environment.
+      - Prioritize deploying only officially released and production-ready features to minimize the risk of introducing instability or security vulnerabilities.
+      - Even in non-production environments, carefully evaluate the potential risks and ensure proper controls before considering the use of alpha features.
+      - Consider alternative standards or best practices for managing software versions and experimental features if NIST SP800-53: SA-5(3) is not directly applicable to your context.
+    references:
+      - title: Kubernetes Alpha Features
+        url: https://kubernetes.io/docs/concepts/alpha/
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: anonymous-access-prevention
+    title: Enforce Authorized Access and Prevent Anonymous Connections
+    description: |
+      Implement measures to prevent unauthorized access and ensure only authorized users can connect to your container environment.
+      This control addresses:
+      - **User Authentication:** Disable anonymous connections and require authentication for all access attempts.
+      - **Authorization:** Enforce appropriate authorization mechanisms to restrict access to authorized users and prevent unauthorized users from accessing container resources.
+    props:
+      - prop: anonymous-access
+        value: prohibited
+      - prop: authorization-enforcement
+        value: enabled
+    prose: |
+      This control requires enforcing authorized access and preventing anonymous connections to your container environment.
+      - Disable anonymous connections to minimize the risk of unauthorized access and potential security breaches.
+      - Implement suitable authorization mechanisms to ensure only authorized users with appropriate permissions can access container resources.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(9)
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: basic-auth-removal
+    title: Disable Basic Authentication in Favor of Stronger Mechanisms
+    description: |
+      Avoid using basic authentication due to its security vulnerabilities associated with transmitting credentials in plain text.
+      This control emphasizes:
+      - **Secure Authentication:** Disable basic authentication and prioritize stronger authentication mechanisms that encrypt credentials during transmission.
+      - **Best Practices:** Consider multi-factor authentication (MFA) or other robust authentication methods for enhanced security.
+    props:
+      - prop: basic-auth-usage
+        value: prohibited
+    prose: |
+      This control mandates disabling basic authentication within your container environment.
+      - Basic authentication transmits credentials in plain text, posing a significant security risk.
+      - Prioritize stronger authentication mechanisms that encrypt credentials during transmission, such as TLS or token-based authentication.
+      - Consider implementing multi-factor authentication (MFA) or other robust authentication methods for an additional layer of security.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(10)
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: pod-security-hygiene
+    title: Maintain Pod Security Hygiene
+    description: |
+      Implement practices to maintain pod security hygiene and minimize potential vulnerabilities.
+    props:
+      - prop: outdated-pod-removal
+        value: automated
+      - prop: patch-management
+        value: continuous
+    prose: |
+      This control requires maintaining proper pod security hygiene within your container environment.
+      - Automate the removal of outdated pods after updates or when no longer needed to minimize the attack surface and potential vulnerabilities associated with inactive or unpatched pods.
+      - Implement continuous patch management processes to ensure timely patching of vulnerabilities identified in deployed pods.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(13)
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: service-mesh
+    title: Implement Service Mesh for Enhanced Security
+    description: |
+      In dynamic microservices environments, consider integrating a service mesh to strengthen security and access control beyond container orchestrator capabilities.
+    props:
+      - prop: service-mesh-integration
+        value: considered
+    prose: |
+      This control recommends considering the integration of a service mesh to enhance security in microservices environments.
+      - A service mesh can provide advanced security features like mutual TLS authentication, authorization policies, and traffic encryption, complementing the security provided by your container orchestrator.
+      - Evaluate the complexity and benefits of a service mesh in your specific context, considering the architecture of your microservices and existing security controls.
+      - Consider alternative standards or best practices for securing microservices if NIST SP800-53: SA-11(14) is not directly applicable.
+    references:
+      - title: Istio Service Mesh
+        url: https://istio.io/
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: storage-volume-security
+    title: Enforce Secure Storage Volume Access Control
+    description: |
+      Implement controls to prevent unauthorized access to and misuse of container storage volumes.
+    props:
+      - prop: volume-ownership-protection
+        value: enabled
+      - prop: security-context-usage
+        value: enforced
+    prose: |
+      This control requires securing storage volume access within your container environment.
+      - Prevent containers from directly accessing volume UIDs and GIDs to mitigate potential vulnerabilities and unauthorized access.
+      - Effectively utilize security contexts to define and enforce granular access control permissions for volumes.
+      - Addressing inconsistent ownership issues helps prevent unintended privilege escalations and simplifies policy enforcement.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(16)
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: software-bom
+    title: Maintain Software Bill of Material (SBOM) for Container Images
+    description: |
+      Generate and maintain a Software Bill of Material (SBOM) for each container image to track its components and dependencies.
+    props:
+      - prop: sbom-generation
+        value: enabled
+      - prop: sbom-maintenance
+        value: continuous
+    prose: |
+      This control mandates maintaining an SBOM for each container image deployed in your environment.
+      - An SBOM provides a detailed inventory of all software components, libraries, and their versions within each image, facilitating vulnerability management and security analysis.
+      - Continuously generate and update SBOMs as images are built or updated to maintain accurate information for effective vulnerability management.
+    references:
+      - title: NIST SP800-161: Supply Chain Risk Management Practices for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-161
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: design-time-vulnerabilities
+    title: Scan and Manage Design-Time Vulnerabilities
+    description: |
+      Implement regular scanning and tracking of design-time vulnerabilities in container images and infrastructure.
+    props:
+      - prop: design-time-scan-frequency
+        value: periodic
+      - prop: vulnerability-documentation
+        value: required
+      - prop: remediation-tracking
+        value: enabled
+    prose: |
+      This control requires proactive management of design-time vulnerabilities in your container environment.
+      - Conduct regular vulnerability scans of container images and infrastructure components to identify potential security weaknesses.
+      - Clearly document identified vulnerabilities and the planned or implemented remediation actions.
+      - Implement processes to track the progress of vulnerability remediation and ensure timely patching or mitigation to minimize security risks.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(6)
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: runtime-vulnerabilities
+    title: Align Vulnerability Mitigation with Security Policy Framework (SPF)
+    description: |
+      Ensure consistency between vulnerability mitigation processes for zero-day vulnerabilities identified by Continuous Weakness Platforms (CWPP) and your defined Security Policy Framework (SPF).
+    props:
+      - prop: zero-day-response-plan
+        value: documented
+      - prop: spf-alignment
+        value: verified
+    prose: |
+      This control mandates aligning vulnerability mitigation for zero-day vulnerabilities with your broader security policy framework.
+      - Develop and document clear response plans for addressing zero-day vulnerabilities identified by CWPP or other monitoring tools.
+      - Regularly review and verify that chosen mitigation actions for zero-day vulnerabilities are consistent with your established security policies and best practices.
+    certification: null
+    phase: develop/distribute/deploy/runtime
+
+  - id: continuous-monitoring
+    title: Implement Continuous Monitoring for Security and Performance
+    description: |
+      Employ continuous monitoring to track container environment health, performance, resource usage, and potential security threats.
+    props:
+      - prop: health-monitoring
+        value: enabled
+      - prop: performance-monitoring
+        value: enabled
+      - prop: security-monitoring
+        value: enabled
+    prose: |
+      This control requires implementing continuous monitoring for both security and performance within your container environment.
+      - Employ monitoring tools to gather real-time information about container health, performance metrics, and resource utilization to proactively identify and address potential issues.
+      - Integrate security monitoring capabilities to detect suspicious activity, potential threats, and vulnerabilities within your container environment, enabling timely response and mitigation.
+    references:
+      - title: NIST SP800-53: Security and Privacy Controls for Federal Information Systems and Organizations
+        url: https://pages.nist.gov/publication/detail?pub_id=800-53
+        section: SA-11(15)
+    certification: null
+    phase: develop/distribute/deploy/runtime
